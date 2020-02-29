@@ -1,5 +1,7 @@
-
-
+#ifndef VOLIMAGE_H
+#define VOLIMAGE_H 
+#include <vector>
+#include <string.h>
 class VolImage
 {
     private: // private members
