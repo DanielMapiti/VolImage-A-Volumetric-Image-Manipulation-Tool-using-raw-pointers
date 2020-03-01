@@ -107,9 +107,9 @@ void VolImage::diffmap(int sliceI, int sliceJ, string output_prefix){
     }
     for(int j=0;j<VolImage::height;j++){
         for(int k=0;k<VolImage::width;k++){
-            ofs<< (unsigned char)(abs((float)v[0][j][k]- (float)v[1][j][k])/2);
-          // char bytes = abs(((float)slices[sliceI][j][k] - (float)slices[sliceJ][j][k])/2); 
-			//ofs.write(&bytes,1);
+           // ofs<< (unsigned char)(abs((float)v[0][j][k]- (float)v[1][j][k])/2);
+           char bytes = abs(((float)slices[sliceI][j][k] - (float)slices[sliceJ][j][k])/2); 
+			ofs.write(&bytes,1);
         }
     }
     ofs.close();
@@ -155,5 +155,23 @@ VolImage::~VolImage(){
 
 int VolImage::num_of_images(){
     return slices.size();
+}
+
+void VolImage::extractImageRow(int rowId, string output_prefix){
+    ofstream ofs(output_prefix + ".raw", ios::binary);
+
+	for (int i = 0; i < height; i++){
+		for (int j = 0; j < VolImage::width; j++){
+			ofs << VolImage::slices[i][rowId][j];
+		}
+	}
+
+	ofs.close();
+
+	ofstream ofs1(output_prefix + ".data");
+
+	ofs1 << VolImage::width << " " << VolImage::height << " " << 1;
+
+	ofs1.close();
 }
 

@@ -32,6 +32,8 @@ class VolImage
 
         //returns the number of images in the stack
         int num_of_images(void);
+
+        void extractImageRow(int rowId, string output_prefix);
     };
 
 #endif

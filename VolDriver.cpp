@@ -32,9 +32,11 @@ int main(int argc, char** argv){
             cout<<"Done\n";
             cout<< "The image has been extracted to "<< argv[4]<<".raw\n";
         }
-     /**   else if(string(argv[2].compare("-g"))==0){
-            istringstream isa(argv[3])>>int a;
-        }**/
+        else if(string(argv[2]).compare("-g")==0){
+            vol.extractImageRow(stoi(argv[3]), argv[4]);
+            cout<<"Done!\n";
+            cout<<"The row of all the required slices has been stored to "<<argv[4]<<".raw\n\n";
+        }
         else{
             cout<<"wrong arguments format\n";
         }
