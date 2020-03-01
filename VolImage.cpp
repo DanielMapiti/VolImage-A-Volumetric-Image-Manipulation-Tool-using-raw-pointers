@@ -8,7 +8,7 @@
 #include <vector>
 
 using namespace std;
-unsigned char** bufferImage;
+//unsigned char** bufferImage;
 int imageNum=0;
 
 VolImage::VolImage(){
@@ -131,6 +131,10 @@ void VolImage::extract(int sliceId, std::string output_prefix){
 
 int VolImage::volImageSize(void){
     return (slices.size())*height*(sizeof(unsigned char**)+VolImage::width);
+}
+
+VolImage::~VolImage(){
+    VolImage::slices.~vector();
 }
 
 int main(int argc, char* argv[]) throw(){
