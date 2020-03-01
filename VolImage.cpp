@@ -136,20 +136,3 @@ int VolImage::volImageSize(void){
 VolImage::~VolImage(){
     VolImage::slices.~vector();
 }
-
-int main(int argc, char* argv[]) throw(){
-	
-	VolImage volImage;
-	
-	volImage.readImages(argv[1]);
-	
-	if(argv[2][1] == 'd'){
-		volImage.diffmap(atoi(argv[3]), atoi(argv[4]), argv[5]);
-	}
-	else{
-		cout << "unexpected input" << endl;
-		return 1;
-	}
-
-	return 0;
-}
