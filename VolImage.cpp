@@ -156,3 +156,4 @@ VolImage::~VolImage(){
 int VolImage::num_of_images(){
     return slices.size();
 }
+
