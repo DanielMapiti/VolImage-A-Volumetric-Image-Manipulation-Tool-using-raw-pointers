@@ -12,13 +12,15 @@ int main(int argc, char** argv){
 
     vol.readImages(argv[1]);
 
-    cout<<"Number of images: "<<
+    cout<<"Number of images: "<< vol.num_of_images()<<endl;
+    cout<< "Number of bytes required: "<< vol.volImageSize()<<endl;
 
     else if(argc==6){
 
         if(string(argv[2]).compare("-d")==0){
             vol.diffmap(atoi(argv[3]),atoi(argv[4]),argv[5]);
             cout<<"Done\n";
+            cout<< "The difference between the slices is stored in "<<argv[5]<<".raw\n";
         }else{
             cout<<"wrong arguments format\n";
         }
@@ -28,6 +30,7 @@ int main(int argc, char** argv){
         if(string(argv[2]).compare("-x")==0){
             vol.extract(stoi(argv[3]),argv[4]);
             cout<<"Done\n";
+            cout<< "The image has been extracted to "<< argv[4]<<".raw\n";
         }
      /**   else if(string(argv[2].compare("-g"))==0){
             istringstream isa(argv[3])>>int a;
