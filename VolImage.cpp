@@ -12,6 +12,7 @@ using namespace std;
 int imageNum=0;
 
 VolImage::VolImage(){
+    cout<< "Constructor called!\n";
     VolImage::width=0;
     VolImage::height=0;
     VolImage::slices = vector<unsigned char**>(0);
@@ -51,7 +52,7 @@ bool VolImage::readImages(std::string baseName){
     else{cout<<"Couldn't open file!\n"}
 **/
 
-
+    cout<<"Reading in images...\n";
     string file = baseName+".data";
     ifstream ifs(file);
 
@@ -88,10 +89,12 @@ bool VolImage::readImages(std::string baseName){
         }
 
     }
+    cout<<"Done reading files!\n";
     return true;
 }
 
 void VolImage::diffmap(int sliceI, int sliceJ, string output_prefix){
+    cout<<"Calculating the difference...\n";
     ofstream ofs(output_prefix+".raw",ios::binary);
 
     vector<unsigned char**> v= vector<unsigned char**>(2);
@@ -111,6 +114,7 @@ void VolImage::diffmap(int sliceI, int sliceJ, string output_prefix){
 }
 
 void VolImage::extract(int sliceId, std::string output_prefix){
+    cout<<"Extracting required slice...\n";
     string sx= output_prefix+".data";
     ofstream ofs(sx,ios::out);
     ofstream outpuFile(output_prefix+".raw",ios::binary);
@@ -134,6 +138,7 @@ int VolImage::volImageSize(void){
 }
 
 VolImage::~VolImage(){
+    cout<<"Destructor called!\n";
     VolImage::slices.~vector();
 }
 
