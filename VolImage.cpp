@@ -163,15 +163,17 @@ void VolImage::extractImageRow(int rowId, string output_prefix){
 	for (int i = 0; i < height; i++){
 		for (int j = 0; j < VolImage::width; j++){
 			ofs << VolImage::slices[i][rowId][j];
-		}
+		
+        }
 	}
+   
 
 	ofs.close();
 
-	ofstream ofs1(output_prefix + ".data");
+	ofstream ofs1((output_prefix + ".data").c_str(),ios::out);
+    if (ofs1.is_open())
+	{ofs1 << VolImage::width << " " << VolImage::height << " " << 1;
 
-	ofs1 << VolImage::width << " " << VolImage::height << " " << 1;
-
-	ofs1.close();
+	ofs1.close();}else{cout<<"Couldn't open left\n\n";}
 }
 
