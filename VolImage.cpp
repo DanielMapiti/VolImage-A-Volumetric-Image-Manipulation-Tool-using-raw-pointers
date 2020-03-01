@@ -110,6 +110,10 @@ void VolImage::diffmap(int sliceI, int sliceJ, string output_prefix){
 
 }
 
+void VolImage::extract(int sliceId, std::string output_prefix){
+    
+}
+
 int main(int argc, char* argv[]) throw(){
 	
 	VolImage volImage;
