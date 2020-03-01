@@ -115,8 +115,8 @@ void VolImage::extract(int sliceId, std::string output_prefix){
     ofstream ofs(sx,ios::out);
     ofstream outpuFile(output_prefix+".raw",ios::binary);
     if(ofs.is_open()){
-        s<<width<<", "<<height<<", "<<1<<endl;
-		s.close();
+        ofs<<width<<", "<<height<<", "<<1<<endl;
+		ofs.close();
     }else{cout<<"Couldn't open file!\n";}
     for (int i = 0; i < imageNum; i++){
 		if (sliceId == i){
@@ -126,7 +126,11 @@ void VolImage::extract(int sliceId, std::string output_prefix){
 				}
 			}
 		}
-	}
+	}outpuFile.close();
+}
+
+int VolImage::volImageSize(void){
+    return (slices.size())*height*(sizeof(unsigned char**)+VolImage::width);
 }
 
 int main(int argc, char* argv[]) throw(){
