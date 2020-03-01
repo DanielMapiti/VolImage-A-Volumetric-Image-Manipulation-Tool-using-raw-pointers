@@ -15,7 +15,7 @@ int main(int argc, char** argv){
     cout<<"Number of images: "<< vol.num_of_images()<<endl;
     cout<< "Number of bytes required: "<< vol.volImageSize()<<endl;
 
-    else if(argc==6){
+     if(argc==6){
 
         if(string(argv[2]).compare("-d")==0){
             vol.diffmap(atoi(argv[3]),atoi(argv[4]),argv[5]);
