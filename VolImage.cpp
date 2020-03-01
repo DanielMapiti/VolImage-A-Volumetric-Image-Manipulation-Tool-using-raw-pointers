@@ -6,6 +6,7 @@
 #include <string.h>
 #include <cmath>
 #include <vector>
+
 using namespace std;
 unsigned char** bufferImage;
 int imageNum=0;
@@ -16,7 +17,7 @@ VolImage::VolImage(){
     VolImage::slices = vector<unsigned char**>(0);
 }
 
-bool readImages(string baseName){
+bool VolImage::readImages(std::string baseName){
    /** string file = baseName+".data";
     ifstream ifs(file.c_str()); //put binary in
     int imageNum;
@@ -69,39 +70,40 @@ bool readImages(string baseName){
     VolImage::height = data[1];
     imageNum = data[2];
 
-    slices.resize(imageNum);
+    VolImage::slices.resize(imageNum);
     for (int i=0;i<imageNum;i++){
-        string rawName = baseName +boost::lexical_cast<string>(i)+".raw";
-        ifstream rawfile(rawName.c_str,binary);
-        slices[i]= new unsigned char*[height];
+        string rawName = baseName +to_string(i)+".raw";
+        ifstream rawfile(rawName,ios::binary);
+        VolImage::slices[i]= new unsigned char*[height];
 
-        if(rawfile.is_open){
-            for(int j=0,j<height;j++){
-                slices[i][j] = new unsigned char[width];
-                for (int k=0;k<width;k++){
-                    slides[i][j][k]= u_char(rawfile.get())
+        if(rawfile.is_open()){
+            for(int j=0;j<VolImage::height;j++){
+                VolImage::slices[i][j] = new unsigned char[width];
+                for (int k=0;k<VolImage::width;k++){
+                    VolImage::slices[i][j][k]= u_char(rawfile.get());
                 }
             }
             rawfile.close();
+
         }
 
     }
     return true;
 }
 
-void diffmap(int sliceI, int sliceJ, string output_prefix){
-    ofstream ofs(output+".raw",binary);
+void VolImage::diffmap(int sliceI, int sliceJ, string output_prefix){
+    ofstream ofs(output_prefix+".raw",ios::binary);
 
     vector<unsigned char**> v= vector<unsigned char**>(2);
-    for(int i=0;i<imageNum<i++){
+    for(int i=0;i<imageNum;i++){
         if(sliceI==i){
-            v[0]=slices[i];
+            v[0]=VolImage::slices[i];
         }else if(sliceJ==i){
-            v[1]=slices[i];
+            v[1]=VolImage::slices[i];
         }
     }
-    for(int j=0;j<height;j++){
-        for(int k=0;k<width;k++){
+    for(int j=0;j<VolImage::height;j++){
+        for(int k=0;k<VolImage::width;k++){
             ofs<< (unsigned char)(abs((float)v[0][j][k]- (float)v[1][j][k])/2);
         }
     }
