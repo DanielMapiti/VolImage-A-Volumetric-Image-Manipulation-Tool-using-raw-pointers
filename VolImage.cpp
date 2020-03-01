@@ -61,3 +61,7 @@ bool readImages(string baseName){
     }
     return true;
 }
+
+void diffmap(int sliceI, int sliceJ, string output_prefix){
+    ofstream ofs(output+".raw",binary);
+}
