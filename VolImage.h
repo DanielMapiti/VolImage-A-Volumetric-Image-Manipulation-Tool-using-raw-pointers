@@ -1,7 +1,10 @@
-#ifndef VOLIMAGE_H
-#define VOLIMAGE_H 
 #include <vector>
 #include <string.h>
+
+#ifndef VOLIMAGE_H
+#define VOLIMAGE_H
+using namespace std;
+
 class VolImage
 {
     private: // private members
@@ -27,3 +30,5 @@ class VolImage
         //and pointers (ignore vector<> container, dims etc)
         int volImageSize(void); // define in .cpp
     };
+
+#endif

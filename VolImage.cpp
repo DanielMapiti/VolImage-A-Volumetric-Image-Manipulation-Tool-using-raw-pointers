@@ -1,17 +1,23 @@
 #include <fstream>
 #include <sstream>
 #include "VolImage.h"
+#include <iostream>
+#include <ios>
+#include <string.h>
+#include <cmath>
+#include <vector>
+using namespace std;
+unsigned char** bufferImage;
+int imageNum=0;
 
-unsigned char** bufferImage
-
-VolImage(){
-    width=0;
-    height=0;
-    slices = vector<unsigned char**>(0);
+VolImage::VolImage(){
+    VolImage::width=0;
+    VolImage::height=0;
+    VolImage::slices = vector<unsigned char**>(0);
 }
 
 bool readImages(string baseName){
-    string file = baseName+".data"
+   /** string file = baseName+".data";
     ifstream ifs(file.c_str()); //put binary in
     int imageNum;
     int counter=1;
@@ -21,12 +27,12 @@ bool readImages(string baseName){
 
     if(ifs.is_open()){
         while(getline(iss, num, ' ')){
-            istreamstring ss(num);
+            istringstream ss(num);
             int i;
             ss>>i;
             if (counter==1){
-                width = i;
-                counter++
+                VolImage::width = i;
+                counter++;
             }
             else if (counter==2){
                 height=i;
@@ -42,6 +48,27 @@ bool readImages(string baseName){
 
     }
     else{cout<<"Couldn't open file!\n"}
+**/
+
+
+    string file = baseName+".data";
+    ifstream ifs(file);
+
+    int data[3] = {};
+	ostringstream oss;
+
+	if(!ifs){
+		cerr << "Unable to open " + baseName;
+		exit(1);
+	}
+
+	for (int i = 0; i < 3; i++){
+		ifs >> data[i];
+	}
+    VolImage::width = data[0];
+    VolImage::height = data[1];
+    imageNum = data[2];
+
     slices.resize(imageNum);
     for (int i=0;i<imageNum;i++){
         string rawName = baseName +boost::lexical_cast<string>(i)+".raw";
@@ -74,9 +101,26 @@ void diffmap(int sliceI, int sliceJ, string output_prefix){
         }
     }
     for(int j=0;j<height;j++){
-        for(int k=0;k<width,k++){
-            ofs<< (u_char)(abs((float)v[0][j][k]- (float)v[1][j][k])/2);
+        for(int k=0;k<width;k++){
+            ofs<< (unsigned char)(abs((float)v[0][j][k]- (float)v[1][j][k])/2);
         }
     }
 
+}
+
+int main(int argc, char* argv[]) throw(){
+	
+	VolImage volImage;
+	
+	volImage.readImages(argv[1]);
+	
+	if(argv[2][1] == 'd'){
+		volImage.diffmap(atoi(argv[3]), atoi(argv[4]), argv[5]);
+	}
+	else{
+		cout << "unexpected input" << endl;
+		return 1;
+	}
+
+	return 0;
 }
