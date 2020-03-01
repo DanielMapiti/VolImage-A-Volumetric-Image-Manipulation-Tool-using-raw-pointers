@@ -111,7 +111,22 @@ void VolImage::diffmap(int sliceI, int sliceJ, string output_prefix){
 }
 
 void VolImage::extract(int sliceId, std::string output_prefix){
-    
+    string sx= output_prefix+".data";
+    ofstream ofs(sx,ios::out);
+    ofstream outpuFile(output_prefix+".raw",ios::binary);
+    if(ofs.is_open()){
+        s<<width<<", "<<height<<", "<<1<<endl;
+		s.close();
+    }else{cout<<"Couldn't open file!\n";}
+    for (int i = 0; i < imageNum; i++){
+		if (sliceId == i){
+			for (int j = 0; j < VolImage::height; j++){
+				for(int k = 0; k < VolImage::width; k++){
+					outpuFile << VolImage::slices[i][j][k];
+				}
+			}
+		}
+	}
 }
 
 int main(int argc, char* argv[]) throw(){
