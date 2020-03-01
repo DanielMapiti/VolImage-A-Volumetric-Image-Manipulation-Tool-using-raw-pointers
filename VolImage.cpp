@@ -64,4 +64,19 @@ bool readImages(string baseName){
 
 void diffmap(int sliceI, int sliceJ, string output_prefix){
     ofstream ofs(output+".raw",binary);
+
+    vector<unsigned char**> v= vector<unsigned char**>(2);
+    for(int i=0;i<imageNum<i++){
+        if(sliceI==i){
+            v[0]=slices[i];
+        }else if(sliceJ==i){
+            v[1]=slices[i];
+        }
+    }
+    for(int j=0;j<height;j++){
+        for(int k=0;k<width,k++){
+            ofs<< (u_char)(abs((float)v[0][j][k]- (float)v[1][j][k])/2);
+        }
+    }
+
 }
