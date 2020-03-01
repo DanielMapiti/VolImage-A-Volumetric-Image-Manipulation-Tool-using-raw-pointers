@@ -89,7 +89,7 @@ bool VolImage::readImages(std::string baseName){
         }
 
     }
-    cout<<"Done reading files!\n";
+    cout<<"Done reading files!\n\n";
     return true;
 }
 
@@ -107,9 +107,12 @@ void VolImage::diffmap(int sliceI, int sliceJ, string output_prefix){
     }
     for(int j=0;j<VolImage::height;j++){
         for(int k=0;k<VolImage::width;k++){
-            ofs<< (unsigned char)(abs((float)v[0][j][k]- (float)v[1][j][k])/2);
+           // ofs<< (unsigned char)(abs((float)v[0][j][k]- (float)v[1][j][k])/2);
+           char bytes = abs(((float)slices[sliceI][j][k] - (float)slices[sliceJ][j][k])/2); 
+			ofs.write(&bytes,1);
         }
     }
+    ofs.close();
 
 }
 
@@ -139,7 +142,15 @@ int VolImage::volImageSize(void){
 
 VolImage::~VolImage(){
     cout<<"Destructor called!\n";
-    VolImage::slices.~vector();
+    //VolImage::slices.~vector();
+    for(int i = 0; i< slices.size(); i++){
+      for(int j = 0; j< height; j++){
+         delete [] slices[i][j];
+      }
+      delete slices[i];
+      
+      
+   }
 }
 
 int VolImage::num_of_images(){
