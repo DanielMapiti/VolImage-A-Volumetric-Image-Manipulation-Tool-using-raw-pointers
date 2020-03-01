@@ -136,3 +136,7 @@ int VolImage::volImageSize(void){
 VolImage::~VolImage(){
     VolImage::slices.~vector();
 }
+
+int VolImage::number_of_images(){
+    return slices.size();
+}

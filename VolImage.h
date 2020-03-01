@@ -1,5 +1,5 @@
 #include <vector>
-#include <string.h>
+#include <string>
 
 #ifndef VOLIMAGE_H
 #define VOLIMAGE_H
@@ -29,6 +29,9 @@ class VolImage
         // number of bytes uses to store image data bytes
         //and pointers (ignore vector<> container, dims etc)
         int volImageSize(void); // define in .cpp
+
+        //returns the number of images in the stack
+        int num_of_images(void);
     };
 
 #endif
