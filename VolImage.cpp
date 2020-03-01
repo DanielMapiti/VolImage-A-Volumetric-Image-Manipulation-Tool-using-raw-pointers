@@ -107,9 +107,9 @@ void VolImage::diffmap(int sliceI, int sliceJ, string output_prefix){
     }
     for(int j=0;j<VolImage::height;j++){
         for(int k=0;k<VolImage::width;k++){
-           // ofs<< (unsigned char)(abs((float)v[0][j][k]- (float)v[1][j][k])/2);
-           char bytes = abs(((float)slices[sliceI][j][k] - (float)slices[sliceJ][j][k])/2); 
-			ofs.write(&bytes,1);
+            ofs<< (unsigned char)(abs((float)v[0][j][k]- (float)v[1][j][k])/2);
+          // char bytes = abs(((float)slices[sliceI][j][k] - (float)slices[sliceJ][j][k])/2); 
+			//ofs.write(&bytes,1);
         }
     }
     ofs.close();
